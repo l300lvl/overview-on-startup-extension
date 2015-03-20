@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="overviewonstartup">
+  <schema path="/org/gnome/shell/extensions/overviewonstartup/" id="org.gnome.shell.extensions.overviewonstartup">
+    <key type="s" name="show-apps-key">
+     	<default>'yes'</default>
+    	<summary>Show Applications View.</summary>
+      	<description>Show the Appications view in the Overview or Frequent apps in 3.8 instead of the default Windows view.</description>
+    </key>
+  </schema>
+</schemalist>
