@@ -1,6 +1,8 @@
 /*various code credit Panacier*/
 const Main = imports.ui.main;
 const Config = imports.misc.config;
+const GLib = imports.gi.GLib;
+const Lang = imports.lang;
 
 const Gettext = imports.gettext.domain('overviewonstartup');
 const _ = Gettext.gettext;
@@ -19,16 +21,22 @@ function OverviewOnStartup(extensionMeta) {
 //    this._settingsSignals = [];
 //    this._settingsSignals.push(this._settings.connect('changed::'+Keys.APPDISPLAY, this));
     this.appsDisplay = this._settings.get_string(Keys.APPDISPLAY);
+    this.event = null;
 
     if (global.display.focus_window == null) {
-        showView.show();
-        if (this.appsDisplay == 'yes') {
-            if (age[1] > 4) {
-                showView._viewSelector._showAppsButton.checked = true;
-            } else {
-                showView._viewSelector.switchTab("applications");
+    
+    	// wait for mainloop to turn idle before showing overview
+	this.event = GLib.idle_add(GLib.PRIORITY_LOW, Lang.bind(this, function() {
+            showView.show();
+            if (this.appsDisplay == 'yes') {
+                if (age[1] > 4) {
+                    showView._viewSelector._showAppsButton.checked = true;
+                } else {
+                    showView._viewSelector.switchTab("applications");
+                }
             }
-        }
+            return false;
+        }));    
     }
 }
 
